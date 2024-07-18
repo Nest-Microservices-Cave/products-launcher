@@ -1,0 +1,58 @@
+services:
+  client-gateway:
+    container_name: client-gateway
+    image: r4zu91/micro-client-gateway
+    build: ./client-gateway
+    ports:
+      - ${CLIENT_GATEWAY_PORT}:3000
+    volumes:
+      - ./client-gateway/src:/usr/src/app/src
+    command: pnpm start:dev
+    environment:
+      - PORT=3000
+      - NATS_SERVERS=nats://nats-server:4222
+
+  products-ms:
+    container_name: products-ms
+    image: r4zu91/micro-products-ms
+    build: ./products-ms
+    volumes:
+      - ./products-ms/src:/usr/src/app/src
+    command: pnpm start:dev
+    environment:
+      - PORT=3001
+      - DATABASE_URL=file:./dev.db
+      - NATS_SERVERS=nats://nats-server:4222
+
+  orders-ms:
+    container_name: orders-ms
+    image: r4zu91/micro-orders-ms
+    build: ./orders-ms
+    volumes:
+      - ./orders-ms/src:/usr/src/app/src
+    command: pnpm start:dev
+    environment:
+      - PORT=3002
+      - DATABASE_URL=postgresql://postgres:123456@orders-db:5432/ordersdb?schema=public
+      - NATS_SERVERS=nats://nats-server:4222
+    depends_on:
+      - orders-db
+
+  orders-db:
+    container_name: orders-db
+    image: postgres:14.0
+    restart: always
+    volumes:
+      - ./orders-ms/postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=ordersdb
+
+  nats-server:
+    container_name: nats-server
+    image: nats:2.10
+    ports:
+      - 8222:8222
