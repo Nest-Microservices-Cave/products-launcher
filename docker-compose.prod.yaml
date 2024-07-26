@@ -5,7 +5,7 @@ services:
 
   client-gateway:
     container_name: client-gateway
-    image: r4zu91/micro-client-gateway
+    image: us-east1-docker.pkg.dev/poetic-brace-430620-b4/store-registry/client-gateway
     build:
       context: ./client-gateway
       dockerfile: dockerfile.prod
@@ -17,7 +17,7 @@ services:
 
   auth-ms:
     container_name: auth-ms
-    image: r4zu91/micro-auth-ms
+    image: us-east1-docker.pkg.dev/poetic-brace-430620-b4/store-registry/auth-ms
     build:
       context: ./auth-ms
       dockerfile: dockerfile.prod
@@ -29,7 +29,7 @@ services:
 
   products-ms:
     container_name: products-ms
-    image: r4zu91/micro-products-ms
+    image: us-east1-docker.pkg.dev/poetic-brace-430620-b4/store-registry/products-ms
     build:
       context: ./products-ms
       dockerfile: dockerfile.prod
@@ -40,7 +40,7 @@ services:
 
   orders-ms:
     container_name: orders-ms
-    image: r4zu91/micro-orders-ms
+    image: us-east1-docker.pkg.dev/poetic-brace-430620-b4/store-registry/orders-ms
     build:
       context: ./orders-ms
       dockerfile: dockerfile.prod
@@ -56,7 +56,7 @@ services:
   # ==============================
   payments-ms:
     container_name: payments-ms
-    image: r4zu91/micro-payments-ms
+    image: us-east1-docker.pkg.dev/poetic-brace-430620-b4/store-registry/payments-ms
     build:
       context: ./payments-ms
       dockerfile: dockerfile.prod
