@@ -26,9 +26,9 @@ spec:
             - name: NATS_SERVERS
               value: 'nats://nats'
             - name: STRIPE_SUCCESS_URL
-              value: 'http://localhost:3003/payments/success'
+              value: 'https://shop-thec.netlify.app/#/payments/success'
             - name: STRIPE_CANCEL_URL
-              value: 'http://localhost:3003/payments/cancelled'
+              value: 'https://shop-thec.netlify.app/#/payments/cancelled'
             - name: STRIPE_SECRET
               valueFrom:
                 secretKeyRef:
